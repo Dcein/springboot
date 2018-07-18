@@ -1,0 +1,11 @@
+<templateSet group="user">
+  <template name="jscm" value="/**&#10; * @Description &#10; * @Author Dcein&#10; * @Date $date$ $time$&#10; * @Param $param$&#10; * @return $return$&#10; **/" description="every" toReformat="false" toShortenFQNames="true">
+    <variable name="date" expression="date()" defaultValue="" alwaysStopAt="true" />
+    <variable name="time" expression="time()" defaultValue="" alwaysStopAt="true" />
+    <variable name="param" expression="" defaultValue="" alwaysStopAt="false" />
+    <variable name="return" expression="" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="OTHER" value="true" />
+    </context>
+  </template>
+</templateSet>

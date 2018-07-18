@@ -1,0 +1,8 @@
+<application>
+  <component name="LanguageInjectionConfiguration">
+    <injection language="JavaScript 1.8" injector-id="xml">
+      <display-name>taglib/@uri</display-name>
+      <place><![CDATA[xmlAttribute().withLocalName(string().equalTo("uri")).withParent(xmlTag().withLocalName(string().equalTo("taglib")).withNamespace(string().equalTo("http://java.sun.com/JSP/Page")))]]></place>
+    </injection>
+  </component>
+</application>
