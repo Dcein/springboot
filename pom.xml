@@ -224,6 +224,7 @@
                     </dependency>
                 <dependency>
                     <groupId>tk.mybatis</groupId>
+
                     <artifactId>mapper</artifactId>
                     <version>3.5.2</version>
                 </dependency>
