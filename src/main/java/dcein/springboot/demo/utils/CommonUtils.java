@@ -4,7 +4,6 @@ import dcein.springboot.demo.constants.BootConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang3.StringUtils;
-import dcein.springboot.demo.constants.BootConstants;
 import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyDescriptor;
 import java.io.InputStream;
