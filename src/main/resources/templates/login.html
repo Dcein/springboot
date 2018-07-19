@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+    <head>
+
+        <meta charset="utf-8">
+        <title>LoginOrRegister</title>
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/login/reset.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/login/supersized.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/login/style.css}">
+    </head>
+
+    <body>
+        <div class="page-container" id="loginPage">
+            <h1>Dcein's House</h1>
+            <form id="form" data-parsley-validate="true" onsubmit="return false">
+                <input type="text" v-model="username"  placeholder="Username">
+                <input type="password" v-model="password"  placeholder="Password">
+                <button v-on:click="login" class="btn btn-block btn-primary mt-lg">Sign me in</button>
+            </form>
+
+            <div class="connect">
+                <div id="errorMsg" class="alert alert-danger text-center" style="display:none;color: #ff3111"></div>
+                <p>Or connect with:</p>
+                <p>
+                    <a class="facebook" href=""></a>
+                    <a class="twitter" href=""></a>
+                </p>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="js/vue/vue.js"></script>
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/login/supersized.3.2.7.min.js"></script>
+    <script src="js/login/supersized-init.js"></script>
+    <script src="js/vue/vue-resource.min.js"></script>
+    <script src="js/login/parsley.min.js"></script>
+    <script type='text/javascript'>
+        Vue.http.options.emulateJSON = true;
+        var loginData = new Vue({
+            el: '#loginPage',
+            data: {
+                'username': '',
+                'password': ''
+            },
+            methods: {
+                login: function(event){
+                    var ok = $('#form').parsley().isValid({force: true});
+                    if(!ok){
+                        return;
+                    }
+                    var datas={
+                        userName: this.username,
+                        passWord: this.password
+                    };
+                    console.log(datas)
+                    this.$http.post('/user/login',datas).then(function(response){
+                        if(response.data.responseCode == '000000'){
+                                 window.location.href = response.data.data;
+                         }else{
+                              $("#errorMsg").html(response.data.responseMsg);
+                              $("#errorMsg").show();
+                         }
+                    }, function(response){
+                        console.log('error');
+                    })
+                }
+            }
+        })
+    </script>
+</html>
+
+
+

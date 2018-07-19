@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="js/jquery/jquery.1.12.4.min.js" charset="utf-8"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="layui/layui.all.js" charset="utf-8"></script>
+    <script src="layui/lay/laypage.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}">
+    <script language=JavaScript type=text/javascript>
+        //window load时调用函数
+        $(function () {
+
+            //laypage分页函数调用
+            getPageList(1, 3);
+
+            }
+        )
+
+        /**
+         * @Description laypage与后端交互实现分页
+         * @Author Dcein
+         * @Date 2018/7/18 14:16
+         **/
+        function getPageList(pageNum, pageSize) {
+            var laypage = layui.laypage;
+            $.ajax({
+                url: "supplierController/getSupplierList",
+                type: 'post',
+                async: true,
+                dataType: 'json',
+                data: {"startPage": pageNum, "pageSize": pageSize},
+                success: function (data) {
+                    //step1.将盛放分页数据的容器进行清空,防止累加
+                    $("#dataCont").html("");
+                    //step2.设置数据的标题
+                    $("#dataCont").append("<tr><td style='width: 200px'>商户名称</td><td style='width: 200px'>商户编号</td><td style='width: 200px'>商户描述</td><td style='width: 200px'>商户地址</td></tr>");
+                    //step3.遍历数据集合
+                    $.each(data.data, function (inx, ele) {
+                        $("#dataCont").append("<tr><td>" + ele.supplierName + "</td><td>" + ele.supplierNo + "</td><td>" + ele.supplierDesc + "</td><td>" + ele.address + "</td></tr>");
+                    });
+                    //step4.调用laypage插件进行页码显示
+                    laypage.render({
+                        elem: pageCont,         //页码显示放入的容器,这里写的是id
+                        count: data.totalPages, //数据总条数,由后台查出
+                        curr: pageNum,          //当前页
+                        limit: pageSize,        //每页显示的数据条数
+                        theme:'#088',           //主题颜色
+                        groups:3,               //连续出现的页码个数
+                        jump: function (obj, first) { //翻页跳转动作
+                            if (!first) {             //回调
+                                getPageList(obj.curr,pageSize);
+                            }
+                        }
+                    })
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<p>记录 -- 是我们心灵的回忆！</p>
+<p id="dataCont"></p>
+<p id="pageCont"></p>
+
+
+</body>
+</html>

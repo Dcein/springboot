@@ -1,0 +1,47 @@
+# mybatis数据库链接信息
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://106.12.14.74:3306/springboot?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+# devtools 配置 修改静态文件服务器不需要重启
+  devtools:
+    restart:
+      exclude: static/**,templates/**
+
+  redis:
+    database: 1
+    host: 106.12.14.74
+    port: 6379
+    connectionTimeout: 5000
+    soTimeout: 5000
+
+# 服务端口号
+server:
+  port: 8082
+
+
+#mybatis相关配置
+mybatis:
+    type-aliases-package: dcein.springboot.demo.mybatis.entity
+    mapper-locations: dcein/springboot/demo/mybatis/mapper/*.xml
+mapper:
+    mappers:
+        - tk.mybatis.mapper.common.Mapper
+    not-empty: false
+    identity: MYSQL
+    before: true
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+#日志
+logging:
+  config: classpath:logback-spring.xml
+
+
