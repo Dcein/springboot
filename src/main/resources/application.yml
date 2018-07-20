@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://106.12.14.74:3306/springboot?useUnicode=true&characterEncoding=UTF-8&useSSL=true
-    username: root
-    password: 123456
+    url: jdbc:mysql://**********/springboot?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    username: ************
+    password: ************
     type: com.alibaba.druid.pool.DruidDataSource
 
 # devtools 配置 修改静态文件服务器不需要重启
