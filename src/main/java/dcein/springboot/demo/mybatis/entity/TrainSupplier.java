@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "train_supplier")
-public class TrainSupplier implements Serializable {
+public class TrainSupplier  {
     /**
      * ID
      */

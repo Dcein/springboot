@@ -1,24 +1,15 @@
 package dcein.springboot.demo.controller.supplier;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import dcein.springboot.demo.mybatis.dao.TrainSupplierMapper;
-import dcein.springboot.demo.mybatis.entity.TrainSupplier;
 import dcein.springboot.demo.service.TrainExcelExportService;
 import dcein.springboot.demo.service.TrainSupplierService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import javax.swing.*;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,7 +48,7 @@ public class SupplierController {
      * @param dataSource 数据集合
      * @param savePlace 储存位置,例：E://supplier.xls
      */
-    public void exportExcel(String[] headers , Collection<T> dataSource , String savePlace ){
+    public void exportExcel(String[] headers , Collection dataSource , String savePlace ){
         log.info("Export excel attribute is savePlace : " + savePlace);
         try {
             //step1.创建读取文件输出流
@@ -70,7 +61,7 @@ public class SupplierController {
             out.close();
 
             //step4.提示框
-            JOptionPane.showMessageDialog(null, "导出成功!");
+//            JOptionPane.showMessageDialog(null, "导出成功!");
 
         } catch (Exception e) {
             log.error("文档输出流异常");
