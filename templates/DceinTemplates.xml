@@ -1,9 +1,0 @@
-<templateSet group="DceinTemplates">
-  <template name="ccmt" value="/***&#10;  * @Description: &#10;  * @Author:      DingCong&#10;  * @CreateDate:  $DATE$ $TIME$&#10;  */" description="Class Comment" toReformat="false" toShortenFQNames="true">
-    <variable name="DATE" expression="date()" defaultValue="" alwaysStopAt="true" />
-    <variable name="TIME" expression="time()" defaultValue="" alwaysStopAt="true" />
-    <context>
-      <option name="JAVA_CODE" value="true" />
-    </context>
-  </template>
-</templateSet>

@@ -1,6 +1,7 @@
 package dcein.springboot.demo.controller.web;
 
 import dcein.springboot.demo.controller.BaseController;
+import dcein.springboot.demo.interceptor.LoginRequired;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,9 +66,10 @@ public class IndexController extends BaseController {
         return "reading";
     }
 
+    @LoginRequired
     @RequestMapping(value = "/getRecoding")
     public String getRecoding(){
-        log.info("进入阅读世界...");
+        log.info("进入记录世界...");
         return "recoding";
     }
 

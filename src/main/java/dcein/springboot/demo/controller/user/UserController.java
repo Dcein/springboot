@@ -6,13 +6,19 @@ import dcein.springboot.demo.mybatis.entity.TrainUser;
 import dcein.springboot.demo.response.ExceptionMsg;
 import dcein.springboot.demo.response.ResponseData;
 import dcein.springboot.demo.service.TrainUserService;
+import dcein.springboot.demo.utils.CommonUtils;
+import dcein.springboot.demo.utils.Tools;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /***
  * @Description: 用户入口
@@ -27,6 +33,7 @@ public class UserController extends BaseController {
     @Autowired
     private TrainUserService trainUserService ;
 
+
     /**
      * 登陆：这里用对象接收值,前端页面使用vue.js中的vue-resource.min.js,通过post方式来请求后台控制器
      * @param user
@@ -34,7 +41,7 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseData login(TrainUser user, HttpServletResponse response) {
+    public ResponseData login(TrainUser user, HttpServletResponse response,HttpServletRequest request) {
         log.info("用户登陆....");
         //step1.先判断参数是否为空
         if (StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.gePassWord())) {
@@ -48,6 +55,19 @@ public class UserController extends BaseController {
             log.error(ExceptionMsg.USERNAME_OR_PASSWORD_ERROR.getMsg());
             return new ResponseData(ExceptionMsg.USERNAME_OR_PASSWORD_ERROR);
         }
+
+        if (StringUtils.isNotBlank((String)request.getSession().getAttribute("sessionId"))){
+            log.info("session存在" + (String)request.getSession().getAttribute("sessionId"));
+        }else {
+            log.info("session不存在");
+        }
+
+        //step3.将用户信息放入session
+        String s = Tools.generateToken();
+        HttpSession session = request.getSession();
+        session.setAttribute("sessionId",s);
+        session.setMaxInactiveInterval(30);
+
 
         //step3.获取跳转链接
         String location = "getHome";

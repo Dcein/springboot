@@ -21,7 +21,7 @@ public class Tools {
      * 5.进行base64编码
      * @return
      */
-    public String  generateToken(){
+    public static String  generateToken(){
 
         String token = System.currentTimeMillis() + new Random().nextInt(999999999) + "";
         try {
@@ -40,4 +40,5 @@ public class Tools {
         String s = generateToken();
         System.out.println(s);
     }
+
 }
