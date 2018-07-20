@@ -1,9 +1,9 @@
 package dcein.springboot.demo.service;
 
+import dcein.springboot.demo.constants.ServiceConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,88 +27,82 @@ import java.util.regex.Pattern;
 @Service
 public class TrainExcelExportService<T> {
 
-    /**
-     * 表格默认列宽
-     */
-    private static final int DEFAULT_COLUMN_WIDE = 15;
-
-    /**
-     * 字体像素点大小
-     */
-    private static final short FONT_HEIGHT_IN_POINTS = 12;
 
     public void exportExcel(Collection<T> dataSource, OutputStream out) throws InvocationTargetException {
-        exportExcel("测试POI导出EXCEL文档", null, dataSource, out, "yyyy-MM-dd");
+        exportExcel("POI EXPORT EXCEL FUNCTION 1", null, dataSource, out, ServiceConstants.DATA_PARTNER);
     }
 
     public void exportExcel(String[] headers, Collection<T> dataSource, OutputStream out) throws InvocationTargetException {
-        exportExcel("测试POI导出EXCEL文档", headers, dataSource, out, "yyyy-MM-dd");
+        exportExcel("POI EXPORT EXCEL FUNCTION 2", headers, dataSource, out, ServiceConstants.DATA_PARTNER);
     }
 
     public void exportExcel(String[] headers, Collection<T> dataSource, OutputStream out, String pattern) throws InvocationTargetException {
-        exportExcel("测试POI导出EXCEL文档", headers, dataSource, out, pattern);
+        exportExcel("POI EXPORT EXCEL FUNCTION 3", headers, dataSource, out, pattern);
     }
 
     /**
-     * 这是一个通用的方法，利用了JAVA的反射机制，可以将放置在JAVA集合中并且符号一定条件的数据以EXCEL 的形式输出到指定IO设备上
-     * @param excelName  表格标题名
-     * @param headers 表格属性列名数组
-     * @param dataSource 需要显示的数据集合,集合中一定要放置符合javabean风格的类的对象。此方法支持的javabean属性的数据类型有基本数据类型及String,Date,byte[](图片数据)
-     * @param out     与输出设备关联的流对象，可以将EXCEL文档导出到本地文件或者网络中
-     * @param pattern 如果有时间数据，设定输出格式。默认为"yyy-MM-dd"
+     * excel导出核心方法
+     *
+     * @param excelFileName 表格标题名
+     * @param headers       表格属性列名数组
+     * @param dataSource    需要显示的数据集合,集合中一定要放置符合javabean风格的类的对象。此方法支持的javabean属性的数据类型有基本数据类型及String,Date,byte[](图片数据)
+     * @param out           与输出设备关联的流对象，可以将EXCEL文档导出到本地文件或者网络中
+     * @param pattern       如果有时间数据，设定输出格式。默认为"yyyy-MM-dd"
      * @throws InvocationTargetException
      */
-    public void exportExcel(String excelName, String[] headers, Collection<T> dataSource, OutputStream out, String pattern) throws InvocationTargetException {
+    public void exportExcel(String excelFileName, String[] headers, Collection<T> dataSource, OutputStream out, String pattern) throws InvocationTargetException {
 
         //step1.新建一个工作空间
         HSSFWorkbook workbook = new HSSFWorkbook();
 
-        //step2.生成Excel表格
-        HSSFSheet sheet = workbook.createSheet(excelName);
+        //step2.开始创建Excel表格
+        HSSFSheet sheet = workbook.createSheet(excelFileName);
 
         //step3.设置表格默认列宽度为15个字节
-        sheet.setDefaultColumnWidth(TrainExcelExportService.DEFAULT_COLUMN_WIDE);
+        sheet.setDefaultColumnWidth(ServiceConstants.DEFAULT_COLUMN_WIDE);
 
-        //step4.设置生成的一个样式
-        HSSFCellStyle style = workbook.createCellStyle();
+        //step4.设置创建表格头的一个样式
+        HSSFCellStyle ExcelHeaderStyle = workbook.createCellStyle();
 
-        //step5.设置更多细节样式
-        style.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
-        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
-        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        //step5.设置表格头具体样式
+        ExcelHeaderStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
+        ExcelHeaderStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        ExcelHeaderStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        ExcelHeaderStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        ExcelHeaderStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        ExcelHeaderStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        ExcelHeaderStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 
-        //step6.设置生成一个字体
-        HSSFFont font = workbook.createFont();
-        font.setColor(HSSFColor.VIOLET.index);
-        font.setFontHeightInPoints(TrainExcelExportService.FONT_HEIGHT_IN_POINTS);
-        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        //step6.设置表格头字体
+        HSSFFont ExcelHeaderFontStyle = workbook.createFont();
+        ExcelHeaderFontStyle.setColor(HSSFColor.VIOLET.index);
+        ExcelHeaderFontStyle.setFontHeightInPoints(ServiceConstants.FONT_HEIGHT_IN_POINTS);
+        ExcelHeaderFontStyle.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 
-        //step7.把字体应用到当前的样式
-        style.setFont(font);
+        //step7.把设置的表格头字体应用到当前的表格头样式中
+        ExcelHeaderStyle.setFont(ExcelHeaderFontStyle);
 
-        //step8.生成并设置另一个样式
-        HSSFCellStyle style2 = workbook.createCellStyle();
-        style2.setFillForegroundColor(HSSFColor.TAN.index);
-        style2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-        style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-        style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-        style2.setBorderRight(HSSFCellStyle.BORDER_THIN);
-        style2.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        style2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        style2.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+        //step8.创建一个数据行样式
+        HSSFCellStyle ExcelDataStyle = workbook.createCellStyle();
 
-        //step9.生成另一个字体
-        HSSFFont font2 = workbook.createFont();
-        font2.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
+        //step8.开始设置数据行样式
+        ExcelDataStyle.setFillForegroundColor(HSSFColor.TAN.index);
+        ExcelDataStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        ExcelDataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        ExcelDataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        ExcelDataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        ExcelDataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        ExcelDataStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        ExcelDataStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
 
-        //step10.把字体应用到当前的样式
-        style2.setFont(font2);
+        //step9.设置数据行字体样式
+        HSSFFont ExcelDataFontStyle = workbook.createFont();
+        ExcelDataFontStyle.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
 
-        //step11.声明一个画图的顶级管理器
+        //step10.把数据行字体样式应用到当前的数据行样式中
+        ExcelDataStyle.setFont(ExcelDataFontStyle);
+
+        //step11.创建一个画图的顶级管理器
         HSSFPatriarch patriarch = sheet.createDrawingPatriarch();
 
         //step12.定义注释的大小和位置,详见文档
@@ -118,18 +112,18 @@ public class TrainExcelExportService<T> {
         comment.setString(new HSSFRichTextString("可以在POI中添加注释！"));//todo
 
         //step14.设置注释作者，当鼠标移动到单元格上是可以在状态栏中看到该内容.
-        comment.setAuthor("dcein"); //todo
+        comment.setAuthor("test"); //todo
 
         //step15.产生表格标题行
-        HSSFRow row = sheet.createRow(0);
+        HSSFRow row = sheet.createRow(ServiceConstants.INDEX_ZERO);
         for (int i = 0; i < headers.length; i++) {
             HSSFCell cell = row.createCell(i);
-            cell.setCellStyle(style);
+            cell.setCellStyle(ExcelHeaderStyle);
             HSSFRichTextString text = new HSSFRichTextString(headers[i]);
             cell.setCellValue(text);
         }
 
-        //step16.遍历集合数据，产生数据行
+        //step16.遍历数据集合,开始向每行填充数据
         Iterator<T> it = dataSource.iterator();
         int index = 0;
         while (it.hasNext()) {
@@ -137,73 +131,57 @@ public class TrainExcelExportService<T> {
             row = sheet.createRow(index);
             T t = (T) it.next();
 
-            //step17.利用反射，根据javabean属性的先后顺序，动态调用getXxx()方法得到属性值
+            //step17.利用反射机制，来获取对象中属性的值，调用getObject()
             Field[] fields = t.getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
-                HSSFCell cell = row.createCell(i);
-                cell.setCellStyle(style2);
+                //得到本行数据的第i列
                 Field field = fields[i];
                 String fieldName = field.getName();
-                String getMethodName = "get"
-                        + fieldName.substring(0, 1).toUpperCase()
-                        + fieldName.substring(1);
+                if (fieldName.equals(ServiceConstants.SERIAL_VERSION_UID)) {
+                    break;
+                }
+                HSSFCell cell = row.createCell(i);
+                cell.setCellStyle(ExcelDataStyle);
+                String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
                 try {
                     Class tCls = t.getClass();
                     Method getMethod = tCls.getMethod(getMethodName, new Class[]{});
                     Object value = getMethod.invoke(t, new Object[]{});
-                    log.info("该属性值的类型为:" + value);
 
                     //step18.判断值的类型后进行强制类型转换
                     String textValue = null;
 
-                   /* if (value instanceof Integer) {
+                    //step19.判断数据类型
+                    if (value instanceof Integer) {
                         int intValue = (Integer) value;
                         cell.setCellValue(intValue);
-                    } else if (value instanceof Float) {
-                        float fValue = (Float) value;
-                        textValue = new HSSFRichTextString(
-                                String.valueOf(fValue));
-                        cell.setCellValue(textValue);
-                    } else if (value instanceof Double) {
-                        double dValue = (Double) value;
-                        textValue = new HSSFRichTextString(
-                                String.valueOf(dValue));
-                        cell.setCellValue(textValue);
                     } else if (value instanceof Long) {
                         long longValue = (Long) value;
                         cell.setCellValue(longValue);
-                    }*/
-
-                    if (value instanceof Boolean) {
-                        log.info("The type of data is boolean");
+                    }else if (value instanceof Boolean) {
                         boolean bValue = (Boolean) value;
-                        textValue = "男";
+                        textValue = "TRUE";
                         if (!bValue) {
-                            textValue = "女";
+                            textValue = "FALSE";
                         }
                     } else if (value instanceof Date) {
-                        log.info("The type of data is date");
                         Date date = (Date) value;
                         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
                         textValue = sdf.format(date);
-
                     } else if (value instanceof byte[]) {
-                        log.info("The type of data is array");
-
                         // 有图片时，设置行高为60px;
                         row.setHeightInPoints(60);
 
                         // 设置图片所在列宽度为80px,注意这里单位的一个换算
                         sheet.setColumnWidth(i, (int) (35.7 * 80));
 
-                        // sheet.autoSizeColumn(i);
                         byte[] bsValue = (byte[]) value;
                         HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 255, (short) 6, index, (short) 6, index);
                         anchor.setAnchorType(2);
                         patriarch.createPicture(anchor, workbook.addPicture(bsValue, HSSFWorkbook.PICTURE_TYPE_JPEG));
                     } else {
                         //其它数据类型都当作字符串简单处理
-                        textValue = value.toString();
+                        textValue = (String) value;
                     }
 
                     //如果不是图片数据，就利用正则表达式判断textValue是否全部由数字组成
@@ -223,14 +201,13 @@ public class TrainExcelExportService<T> {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-
-                } finally {
-                    //TODO 清理资源
                 }
             }
         }
+        log.info("[The system print data number is : " + index + "]");
         try {
             workbook.write(out);
+            log.info(ServiceConstants.DISPLAY_SUCCESS_TEXT);
         } catch (IOException e) {
             e.printStackTrace();
         }
