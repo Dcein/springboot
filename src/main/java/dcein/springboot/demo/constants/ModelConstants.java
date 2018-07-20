@@ -2,7 +2,7 @@ package dcein.springboot.demo.constants;
 
 /**
  * @Auther: DingCong
- * @Description: 常量
+ * @Description: 模型常量类
  * @@Date: Created in 13:30 2018/6/14
  */
 public enum ModelConstants {

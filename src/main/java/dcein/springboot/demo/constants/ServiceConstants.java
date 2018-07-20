@@ -2,7 +2,7 @@ package dcein.springboot.demo.constants;
 
 /**
  * @Auther: DingCong
- * @Description: 服务层常量配置
+ * @Description: 服务层级别常量类
  * @@Date: Created in 14:50 2018/7/20
  */
 public class ServiceConstants {

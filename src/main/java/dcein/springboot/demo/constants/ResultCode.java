@@ -2,7 +2,7 @@ package dcein.springboot.demo.constants;
 
 /**
  * @Auther: DingCong
- * @Description: 结果响应状态码
+ * @Description: 结果响应吗常量类
  * @@Date: Created in 13:36 2018/5/16
  */
 public enum ResultCode {

@@ -2,7 +2,7 @@ package dcein.springboot.demo.constants;
 
 /**
  * @Auther: DingCong
- * @Description: 常量
+ * @Description: 系统级别常量类
  * @@Date: Created in 13:25 2018/5/16
  */
 public class BootConstants {

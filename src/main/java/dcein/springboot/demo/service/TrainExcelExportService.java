@@ -42,7 +42,6 @@ public class TrainExcelExportService<T> {
 
     /**
      * excel导出核心方法
-     *
      * @param excelFileName 表格标题名
      * @param headers       表格属性列名数组
      * @param dataSource    需要显示的数据集合,集合中一定要放置符合javabean风格的类的对象。此方法支持的javabean属性的数据类型有基本数据类型及String,Date,byte[](图片数据)
