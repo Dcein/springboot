@@ -24,7 +24,7 @@ public class IndexController extends BaseController {
         return "index";
     }
 
-    @RequestMapping(value="/login",method= RequestMethod.GET)
+    @RequestMapping(value="/login",method= {RequestMethod.GET,RequestMethod.POST})
     public String login(HttpServletResponse response) {
         log.info("进入登陆页面...");
         return "login";

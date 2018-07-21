@@ -1,5 +1,6 @@
 package dcein.springboot.demo.interceptor;
 
+import org.apache.commons.lang3.StringUtils;
 import org.omg.PortableInterceptor.Interceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +34,18 @@ public class LoginInterceptor implements HandlerInterceptor{
 
         //step2.判断登陆注解是否为空
         if (null == annotation){
-            log.info("the method annotation is null , return true");
+            log.info("[the method annotation is null , return true]");
             return true ;
         }
 
         //step3.注解不为空,获取登陆地址
-        response.sendRedirect("/login");
-        return false ;
+        log.info("[the method annotation is not null , begin interceptor ...]");
+        String token = (String)request.getSession().getAttribute("token");
+        if (StringUtils.isBlank(token)){
+            response.sendRedirect("/login");
+            return false ;
+        }
+        return true;
     }
 
     @Override
