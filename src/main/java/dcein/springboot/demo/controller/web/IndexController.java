@@ -73,6 +73,12 @@ public class IndexController extends BaseController {
         return "recoding";
     }
 
+    @RequestMapping(value = "/audio")
+    public String audio(){
+        log.info("进入audio...");
+        return "audio";
+    }
+
 
 
 

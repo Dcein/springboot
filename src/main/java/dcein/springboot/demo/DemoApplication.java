@@ -10,6 +10,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * 此处一定要加上mybatis的扫描包，在容器初始化的时扫描接口
+ * ServletComponentScan：扫描一些配置信息
  */
 @SpringBootApplication
 @ServletComponentScan
