@@ -1,5 +1,10 @@
 package dcein.springboot.demo.response;
 
+/*
+ * @Author: DingCong
+ * @Description:  系统统一基础响应
+ * @CreateDate: 2018/7/25 10:33
+ */
 public class Response {
 
     private String responseCode = "000000";

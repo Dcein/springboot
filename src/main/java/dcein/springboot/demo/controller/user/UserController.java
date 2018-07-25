@@ -34,7 +34,6 @@ public class UserController extends BaseController {
 
     /**
      * 登陆：这里用对象接收值,前端页面使用vue.js中的vue-resource.min.js,通过post方式来请求后台控制器
-     *
      * @param user
      * @param response
      * @return

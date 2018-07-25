@@ -6,7 +6,7 @@ import java.util.Random;
 
 /**
  * @Auther: DingCong
- * @Description:
+ * @Description: 工具类
  * @@Date: Created in 9:38 2018/7/19
  */
 public class Tools {

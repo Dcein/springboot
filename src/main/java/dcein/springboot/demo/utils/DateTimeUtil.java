@@ -7,13 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * 
-* @ClassName: DateTimeUtil 
-* @Description: 日期时间工具类
-* @author LinYong 
-* @date 2016年8月6日 下午8:40:16 
-*
+/*
+ * @Author: DingCong
+ * @Description:  时间日期功能工具类
+ * @CreateDate: 2018/7/25 10:39
+ * @param:
  */
 @Slf4j
 public class DateTimeUtil {
