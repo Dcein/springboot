@@ -21,33 +21,10 @@ import java.util.regex.Pattern;
  * @Author: DingCong
  * @Description:  公共基础工具类
  * @CreateDate: 2018/7/25 10:36
- * @param:
  */
 @Slf4j
 public class CommonUtils {
-	
-	/**
-	 * 格式化手机号 
-	 * 格式化后的手机号形式为：158****1234
-	 * @return
-	 */
-	public static String formatMobileNo(String mobileNo) {
-		if (StringUtils.isNotEmpty(mobileNo) && mobileNo.length() > 7) {
-			return mobileNo.substring(0, 3) + " **** " + mobileNo.substring(mobileNo.length() - 4);
-		}
-		return mobileNo;
-	}
-	
-	/**
-	 * 格式化姓名
-	 * @return
-	 */
-	public static String formatName(String name) {
-		if (StringUtils.isNotEmpty(name) && name.length() >= 2 ) {
-			return "**" + name.substring(name.length() - 1);
-		}
-		return name;
-	}
+
 	
 	/**
 	 * 读取一个属性文件
@@ -149,12 +126,8 @@ public class CommonUtils {
 	}
 	
 	/**
-	 * 
-	* @ClassName: MapKeyComparator 
-	* @Description: 降序比较器
-	* @author LinYong 
-	* @date 2016年8月3日 上午11:43:15 
-	*
+	 * @ClassName: MapKeyComparator
+	 * @Description: 降序比较器
 	 */
 	private static class MapKeyComparator implements Comparator<String>{
 		@Override
@@ -581,6 +554,7 @@ public class CommonUtils {
         log.info("将bean对象转换成字符串为" + beanString.toString());
         return beanString.toString();
     }
+
 
 
 
