@@ -1,0 +1,10 @@
+<templateSet group="user">
+  <template name="comment" value="/* &#10; * @Author: DingCong&#10; * @Description:  &#10; * @CreateDate: $date$ $time$ &#10; * @param: $params$ &#10; */" toReformat="false" toShortenFQNames="true">
+    <variable name="date" expression="date()" defaultValue="" alwaysStopAt="true" />
+    <variable name="time" expression="time()" defaultValue="" alwaysStopAt="true" />
+    <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="OTHER" value="true" />
+    </context>
+  </template>
+</templateSet>
