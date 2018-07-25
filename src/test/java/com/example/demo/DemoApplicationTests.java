@@ -33,7 +33,7 @@ public class DemoApplicationTests {
         Map<String, Object> supplierList = supplierController.getSupplierList(1, 12);
         List<TrainSupplier>   data = (List<TrainSupplier>) supplierList.get("data");
 
-        supplierController.exportExcel(title,data,"I://ling.xls");
+//        supplierController.exportExcel(title,data,"I://ling.xls");
 
     }
 
