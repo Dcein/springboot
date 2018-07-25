@@ -17,6 +17,14 @@ public class BootConstants {
      */
     public static final String PASSWORD = "root";
 
+    /**
+     * 默认错误跳转视图
+     */
+    public static final String DEFAULT_ERROR_VIEW = "error";
+
+    /**
+     * 日期类型
+     */
     public static final String DATE_PATTERN_5 = "yyyyMMddHHmmssSSS";
 
 }

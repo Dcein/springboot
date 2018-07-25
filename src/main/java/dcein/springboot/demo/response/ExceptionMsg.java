@@ -1,6 +1,11 @@
 
 package dcein.springboot.demo.response;
 
+/* 
+ * @Author: DingCong
+ * @Description:  系统异常枚举类
+ * @CreateDate: 2018/7/25 10:33 
+ */
 public enum ExceptionMsg {
 
     /**

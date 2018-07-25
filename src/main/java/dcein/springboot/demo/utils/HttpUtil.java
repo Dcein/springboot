@@ -27,13 +27,11 @@ import java.security.cert.X509Certificate;
 import java.util.*;
 import java.util.Map.Entry;
 
-/**
- *
- * @ClassName: HttpUtils
- * @Description: http工具类
- * @author LinYong
- * @date 2016年9月27日 下午4:26:54
- *
+/*
+ * @Author: DingCong
+ * @Description:  http请求类
+ * @CreateDate: 2018/7/25 10:39
+ * @param:
  */
 @Slf4j
 public class HttpUtil {

@@ -17,44 +17,18 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * 
-* @ClassName: CommonUtils 
-* @Description: 公共的基础工具类
-* @author LinYong 
-* @date 2016年8月10日 下午5:09:00 
-*
-*/
+/*
+ * @Author: DingCong
+ * @Description:  公共基础工具类
+ * @CreateDate: 2018/7/25 10:36
+ * @param:
+ */
 @Slf4j
 public class CommonUtils {
-
-	/**
-	 * 格式化卡号 
-	 * 格式化后的卡号形式为：1234*****1234
-	 * @return
-	 */
-	public static String formatCardNo(String cardNo) {
-		if (StringUtils.isNotEmpty(cardNo) && cardNo.length() > 8) {
-			return cardNo.substring(0, 4) + " **** **** " + cardNo.substring(cardNo.length() - 4);
-		}
-		return cardNo;
-	}
-	
-	/**
-	 * 获取卡号末四位
-	 * @return
-	 */
-	public static String getCardNoEndFour(String cardNo) {
-		if (StringUtils.isNotEmpty(cardNo) && cardNo.length() > 4) {
-			return cardNo.substring(cardNo.length() - 4);
-		}
-		return cardNo;
-	}
 	
 	/**
 	 * 格式化手机号 
 	 * 格式化后的手机号形式为：158****1234
-	 * 
 	 * @return
 	 */
 	public static String formatMobileNo(String mobileNo) {
@@ -73,19 +47,6 @@ public class CommonUtils {
 			return "**" + name.substring(name.length() - 1);
 		}
 		return name;
-	}
-	
-	/**
-	 * 获取支付串非空字符
-	 * @param object
-	 * @return
-	 */
-	public static String getStringNotNullValue(Object object) {
-		if (object == null) {
-			return "";
-		} else {
-			return object.toString().trim();
-		}
 	}
 	
 	/**
@@ -120,7 +81,6 @@ public class CommonUtils {
 		log.info("属性文件：" + p);
 		return p;
 	}
-
 
 	/**
 	 * 判断字符串数组strArray中是否包含否一个字符串str
@@ -307,21 +267,7 @@ public class CommonUtils {
 			out.close();
 		}
 	}
-	
-	/**
-	 * 获取当前服务器配置的环境变量SERVER_FLAG的数据
-	 * @return MASTER or SLAVE or other
-	 */
-	public static String getServerFlag() {
-		String serverFlag = null;
-		try {
-			//参数设置jboss路径为/app/ecomnew/jboss-4.2.2.GA/bin/runNode1.conf或者runNode2.conf或者runNode3.conf或者runNode4.conf
-			serverFlag = System.getProperty("SERVER_FLAG");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return getStringNotNullValue(serverFlag);
-	}
+
 	
 	/**
 	 * 判断是否为手机号
@@ -354,7 +300,7 @@ public class CommonUtils {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 格式化浮点型数字
 	 * @param d 浮点型
