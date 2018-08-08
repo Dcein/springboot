@@ -4,8 +4,15 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://106.12.14.74:3306/springboot?useUnicode=true&characterEncoding=UTF-8&useSSL=true
     username: root
-    password: 6yhnmju7
+    password: Tmx2GZX5sESpK5uM4WxprvJtlpDJdpJ7B3sdsnumHUzySNqpUK44z1sUm7tS3VcahBdHRZ55pHwKtCOY957iTQ==
     type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+     connection-properties:
+      config:
+       decrypt: true
+     filter:
+      config:
+       enabled: true
 
 # devtools 配置 修改静态文件服务器不需要重启
   devtools:

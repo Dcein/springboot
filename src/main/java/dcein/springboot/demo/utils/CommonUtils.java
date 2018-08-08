@@ -1,6 +1,6 @@
 package dcein.springboot.demo.utils;
 
-import dcein.springboot.demo.constants.BootConstants;
+import dcein.springboot.demo.constants.SystemConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang3.StringUtils;
@@ -478,7 +478,7 @@ public class CommonUtils {
 	
 	//生成流水号  年月日时分秒加8位随机数
 	public static String serialNumber() {
-		String timestamp = DateTimeUtil.getFormatDate(DateTimeUtil.getCurrentTime(), BootConstants.DATE_PATTERN_5) + CommonUtils.getCharAndNum(8);
+		String timestamp = DateTimeUtil.getFormatDate(DateTimeUtil.getCurrentTime(), SystemConstants.DATE_PATTERN_5) + CommonUtils.getCharAndNum(8);
 		log.info("timestamp : "+timestamp);
 		return timestamp;
 	}

@@ -1,6 +1,6 @@
 package dcein.springboot.demo.exception;
 
-import dcein.springboot.demo.constants.BootConstants;
+import dcein.springboot.demo.constants.SystemConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
         logger.info("请求地址：" + request.getRequestURL());
         ModelAndView mav = new ModelAndView();
         logger.error("异常信息：",e);
-        mav.setViewName(BootConstants.DEFAULT_ERROR_VIEW);
+        mav.setViewName(SystemConstants.DEFAULT_ERROR_VIEW);
         return mav;
     }
 }
