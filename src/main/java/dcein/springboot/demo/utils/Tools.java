@@ -1,5 +1,6 @@
 package dcein.springboot.demo.utils;
 
+import dcein.springboot.demo.constants.SystemConstants;
 import org.junit.jupiter.api.Test;
 import sun.misc.BASE64Encoder;
 import java.util.Random;
@@ -22,23 +23,14 @@ public class Tools {
      * @return
      */
     public static String  generateToken(){
-
         String token = System.currentTimeMillis() + new Random().nextInt(999999999) + "";
         try {
-            String s = MD5Util.md5Encode(token);
+            String s = MD5Util.encryption(token, SystemConstants.MD5);
             BASE64Encoder encoder = new BASE64Encoder();
             return encoder.encode(s.getBytes());
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
-
-    @Test
-    public  void main() {
-        String s = generateToken();
-        System.out.println(s);
-    }
-
 }

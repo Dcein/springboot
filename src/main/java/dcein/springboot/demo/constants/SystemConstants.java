@@ -30,7 +30,7 @@ public class SystemConstants {
     /**
      * 德鲁伊公钥
      */
-    public static final String DRUID_KEY = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKYx7h17iuSy0Po0OglVBM86N2Kp/TXYb3PfGkYKv5LUFSQuH2n0ClcsOkOGf+B73KE4rrg2nKOGsj4Y5vgDS0UCAwEAAQ==";
+    public static final String DRUID_KEY = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIr6s4MwP9mqgCR2BpWH85XSJmXcVEM/NitmBEXalBw2wmWP2a2bQII1nLs7IZEMeAZSfNBtmZmIED4ddlpnWR0CAwEAAQ==";
 
     /**
      * 德鲁伊URL映射
@@ -51,5 +51,17 @@ public class SystemConstants {
      * 德鲁伊排出匹配类型
      */
     public static final String DRUID_EXCLUSION_PATTERN = "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*";
+
+    /**
+     * MD5加密
+     */
+    public static final String MD5 = "MD5";
+
+    /**
+     * 私钥路径
+     */
+    public static final String PRIKEY_PATH = "F://b.txt";
+
+
 
 }
