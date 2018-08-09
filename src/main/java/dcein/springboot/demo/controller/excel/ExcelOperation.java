@@ -45,7 +45,7 @@ public class ExcelOperation {
             //JOptionPane.showMessageDialog(null, "导出成功!");
 
         } catch (Exception e) {
-            log.error("文档输出流异常");
+            log.error("文档输出流异常,关闭");
             e.printStackTrace();
         }
     }
