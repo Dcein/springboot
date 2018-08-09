@@ -19,6 +19,7 @@ spring:
     restart:
       exclude: static/**,templates/**
 
+# redis缓存配置
   redis:
     database: 1
     host: 106.12.14.74
