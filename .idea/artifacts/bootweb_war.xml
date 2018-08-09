@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="bootweb:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="boot.war">
-      <element id="artifact" artifact-name="bootweb:war exploded" />
-    </root>
-  </artifact>
-</component>
