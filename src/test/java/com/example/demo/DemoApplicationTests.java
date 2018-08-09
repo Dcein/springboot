@@ -26,7 +26,7 @@ public class DemoApplicationTests {
 	@Test
     public void textExcel() {
 
-	    String[] title = {"商户号","商户名","订单金额","结算日期"} ;
+	    String[] title = {"商户号","商户 名","订单金 额","结算日期"} ;
 
         List list = new ArrayList();
         list.add("123");
