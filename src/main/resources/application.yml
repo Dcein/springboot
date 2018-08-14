@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://106.12.14.74:3306/cloud_spring?useUnicode=true&characterEncoding=UTF-8&useSSL=true&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://106.12.14.74:3306/cloud_spring?useUnicode=true&characterEncoding=UTF-8&useSSL=true
     username: root
     password: OlrDobl7DqsCrrZxODohmLl/UGKiTQxN6bsfxxnRexdBJr9CtLr++2grSNlo2/CRiJyEmvu/DNGJRr6PPFBuYA==
     type: com.alibaba.druid.pool.DruidDataSource

@@ -24,9 +24,9 @@
 
         <!--驱动-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://106.12.14.74:3306/springboot?useUnicode=true"
+                        connectionURL="jdbc:mysql://106.12.14.74:3306/cloud_spring?useUnicode=true"
                         userId="root"
-                        password="123456">
+                        password="dcein@root">
         </jdbcConnection>
 
         <!-- 类型转换 -->
@@ -51,7 +51,7 @@
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
-        <table tableName="train_supplier" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="train_schedule_exception" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample     是否生成 example类   -->
         <!-- 忽略列，不生成bean 字段 -->
