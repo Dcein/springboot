@@ -13,16 +13,14 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -70,12 +68,13 @@ public class ScheduleMonitor {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sdf.format(date);
-        System.out.println("当前切入点所在方法:" + point.getSignature().getName() + ",执行时间:" + format);
+        log.info("[当前切入方法:" + point.getSignature().getName() + ",当前时间:" + format + "]");
 
         //step2.向数据库中添加实际运行时间
         TrainSchedule ts = new TrainSchedule();
         ts.setScheduleExecuteTime(format);
         ts.setScheduleName(point.getSignature().getName());
+        ts.setServerIp(getIp());
         scheduleMapper.insert(ts);
     }
 
@@ -84,7 +83,7 @@ public class ScheduleMonitor {
      * 功能描述：
      *     获取该任务理论上运行的时刻,根据理论时刻和定时任务的方法名去实际运行时刻表查询,数据不为空,说明定时任务正常运行,否则定时任务发生异常
      */
-    public void timerTask(Long timeMills,HttpServletRequest request) {
+    public void timerTask(Long timeMills) {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
 
@@ -92,7 +91,6 @@ public class ScheduleMonitor {
             public void run() {
                 //step1.获取当前系统时间和系统启动传进来的时间
                 Long systemStartMills = timeMills;
-                System.out.println("当前系统时间:" + systemStartMills);
                 Date date = new Date();
 
                 //step2.获取所有定时任务对象
@@ -112,6 +110,7 @@ public class ScheduleMonitor {
                     TrainSchedule trainSchedule = new TrainSchedule();
                     trainSchedule.setScheduleName(methodName);
                     trainSchedule.setScheduleExecuteTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(latestTime));
+                    trainSchedule.setServerIp(getIp());
 
                     //查询DB
                     TrainSchedule scheduleResult = scheduleMapper.selectOne(trainSchedule);
@@ -127,6 +126,7 @@ public class ScheduleMonitor {
                         log.info(resolve.getMethodName() + "定时任务,在" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(latestTime) + "运行异常");
                         //将异常信息写入数据库
                         TrainScheduleException trainScheduleException = new TrainScheduleException();
+                        trainScheduleException.setServerIp(getIp());
                         trainScheduleException.setScheduleName(resolve.getMethodName());
                         trainScheduleException.setScheduleExceptionTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(latestTime));
                         scheduleExceptionMapper.insert(trainScheduleException);
@@ -135,7 +135,7 @@ public class ScheduleMonitor {
                     }
                 }
             }
-        }, 5000, 10000);
+        }, 5000, 10*60*1000);
     }
 
     /**
@@ -143,20 +143,22 @@ public class ScheduleMonitor {
      */
     public List<ScheduleAnnotationAttr> getScheduleAnnotationValue() {
         log.info("获取定时任务的所有方法,获取方法名和表达式属性内容");
-
         //step1.创建解析对象和相应对象集合
         List<ScheduleAnnotationAttr> scheduleList = new  ArrayList<ScheduleAnnotationAttr>();
 
-        //step2.获取带有@Schedule的方法
+        //step2.获取轮训任务类中所有带有@Schedule的方法
         Class<SpringSchedule> clazz = SpringSchedule.class;
         Method[] declaredMethods = clazz.getDeclaredMethods();
 
         //step3.遍历所有方法,获取方法名和注解属性
-        int i = 0;
+        int methodCount = 0;
         for (Method method : declaredMethods) {
+
+            //判断该方法是否存在@schedule
             boolean isHasAnnotation = method.isAnnotationPresent(Scheduled.class);
             if (isHasAnnotation) {
-                i++;
+                methodCount++;
+                //存在注解,获取到该注解对象
                 Scheduled annotation = method.getAnnotation(Scheduled.class);
                 ScheduleAnnotationAttr scheduleAnnotationAttr = new ScheduleAnnotationAttr();
                 scheduleAnnotationAttr.setMethodName(method.getName());
@@ -166,7 +168,7 @@ public class ScheduleMonitor {
         }
 
         //step4.响应对象信息
-        log.info("定时任务数量为:" + i);
+        log.info("定时任务数量为:" + methodCount);
         return scheduleList;
     }
 
@@ -175,8 +177,6 @@ public class ScheduleMonitor {
      * @throws Exception
      */
     public  ResolveScheduleCronExp resolveDayScheduleByCronExp(String cronExpression){
-        log.info("[根据cron表达式获取一天执行的详细时刻表]");
-
         //step1.设置解析日期时间格式
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -220,12 +220,12 @@ public class ScheduleMonitor {
      * @return
      */
     public  Date getLatestTime(List<Date> dateList, Date currentDate) {
-        //step1.判断参数的合法性
+        //step1.判断参数不能为空
         if (dateList == null || dateList.size() <= 0) {
             return null;
         }
 
-        //step2.判断参数的特殊性
+        //step2.判断参数列表是否只有一条数据
         if (dateList.size() == 1) {
             return dateList.get(0);
         }
@@ -235,16 +235,53 @@ public class ScheduleMonitor {
         Collections.sort(dateList);
 
         //step4.计算集合时间大于系统时间时,获取集合前一个时间即为最为接近且小于当前系统的时间
-        Date res = new Date();
+        Date currentDateRes = new Date();
         for (int i = 0; i < dateList.size(); i++) {
             if ((currentDate.getTime() - dateList.get(i).getTime()) < 0) {
-                res = dateList.get(i - 1);
+                currentDateRes = dateList.get(i - 1);
                 break;
             }
         }
 
         //step5.返回所求结果
-        return res;
+        return currentDateRes;
+    }
+
+    /**
+     * 获取本地IP
+     * @return
+     */
+    public String getIp(){
+
+        String sIP = "";
+        InetAddress ip = null;
+        try {
+            boolean bFindIP = false;
+            Enumeration<NetworkInterface> netInterfaces = (Enumeration<NetworkInterface>) NetworkInterface
+                    .getNetworkInterfaces();
+            while (netInterfaces.hasMoreElements()) {
+                if (bFindIP) {
+                    break;
+                }
+                NetworkInterface ni = (NetworkInterface) netInterfaces
+                        .nextElement();
+                Enumeration<InetAddress> ips = ni.getInetAddresses();
+                while (ips.hasMoreElements()) {
+                    ip = (InetAddress) ips.nextElement();
+                    if (!ip.isLoopbackAddress()
+                            && ip.getHostAddress().matches(
+                            "(\\d{1,3}\\.){3}\\d{1,3}")) {
+                        bFindIP = true;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+        if (null != ip) {
+            sIP = ip.getHostAddress();
+        }
+       return sIP;
     }
 
     /**
@@ -254,8 +291,9 @@ public class ScheduleMonitor {
 
 
 //        getScheduleAnnotationValue();
-    }
 
+
+    }
 
 }
 

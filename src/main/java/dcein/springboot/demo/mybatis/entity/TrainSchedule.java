@@ -15,6 +15,9 @@ public class TrainSchedule implements Serializable {
     @Column(name = "SCHEDULE_EXECUTE_TIME")
     private String scheduleExecuteTime;
 
+    @Column(name = "SERVER_IP")
+    private String serverIp;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -58,4 +61,9 @@ public class TrainSchedule implements Serializable {
     public void setScheduleExecuteTime(String scheduleExecuteTime) {
         this.scheduleExecuteTime = scheduleExecuteTime;
     }
+
+    public void setServerIp(String serverIp){this.serverIp = serverIp;}
+
+    public String getServerIp(){ return serverIp;}
+
 }
