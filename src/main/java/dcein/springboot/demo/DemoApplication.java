@@ -1,10 +1,13 @@
 package dcein.springboot.demo;
 
+import dcein.springboot.demo.schedule.ScheduleMonitor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -13,8 +16,10 @@ import tk.mybatis.spring.annotation.MapperScan;
  * ServletComponentScan：扫描一些配置信息
  */
 @SpringBootApplication
+@EnableScheduling
 @ServletComponentScan
 @MapperScan(basePackages = "dcein.springboot.demo.mybatis.dao")
+@Slf4j
 public class DemoApplication {
 
     /**

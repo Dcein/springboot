@@ -63,7 +63,7 @@
             </pattern>
         </encoder>
     </appender>
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="console"/>
         <appender-ref ref="info_log"/>
     </root>
