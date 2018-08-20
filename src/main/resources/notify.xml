@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 任务task通知配置 -->
+<taskbase>
+	<task name="task">
+		<!-- 6点到23点2分钟内没有订单 -->
+		<work1 name="taskWork1">
+			<!-- 邮件 -->
+			<email name="email" email="625192155@qq.com"></email>
+			<email name="email" email="dcein520@163.com"></email>
+			<!-- 短信 -->
+			<msg name="msg" msg="15737317830"></msg>
+			
+			<!-- 微信 -->	
+			<wechat name="wechat" wechat="E625192155"></wechat>
+			
+		</work1>
+	</task>
+
+	<task2 name="task2">
+		<!-- 6点到23点5分钟内没有授权请求 -->
+		<work1 name="task2Work1">
+			<!-- 邮件 -->
+			<email name="email" email="dcein520@163.com"></email>
+			
+			<!-- 短信 -->
+			<msg name="msg" msg="15737317830"></msg>
+			
+			<!-- 微信 -->	
+			<wechat name="wechat" wechat="E625192155"></wechat>
+		</work1>
+
+		<!-- 6点到23点五分钟内没有生成账户收支明细 -->
+		<work2 name="task2Work2">
+			<!-- 邮件 -->
+			<email name="email" email="dcein520@163.com"></email>
+			
+			<!-- 短信 -->
+			<msg name="msg" msg="15737317830"></msg>
+			
+			<!-- 微信 -->	
+			<wechat name="wechat" wechat="E625192155"></wechat>
+		</work2>
+	</task2>
+</taskbase>
+
+
