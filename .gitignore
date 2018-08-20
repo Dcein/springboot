@@ -1,3 +1,7 @@
 /.idea/*
 /target/*
 /test/*
+*.xml
+!pom.xml
+_windows/
+codestyles/
