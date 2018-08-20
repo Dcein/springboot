@@ -8,5 +8,6 @@
     <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="SCHEDULE_NAME" jdbcType="VARCHAR" property="scheduleName" />
     <result column="SCHEDULE_EXECUTE_TIME" jdbcType="VARCHAR" property="scheduleExecuteTime" />
+    <result column="SERVER_IP" javaType="VARCHAR" property="serverIp" />
   </resultMap>
 </mapper>

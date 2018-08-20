@@ -15,6 +15,8 @@ public class TrainScheduleException implements Serializable {
     @Column(name = "SCHEDULE_EXCEPTION_TIME")
     private String scheduleExceptionTime;
 
+    @Column(name = "SERVER_IP")
+    private String serverIp;
     private static final long serialVersionUID = 1L;
 
     /**
@@ -58,4 +60,8 @@ public class TrainScheduleException implements Serializable {
     public void setScheduleExceptionTime(String scheduleExceptionTime) {
         this.scheduleExceptionTime = scheduleExceptionTime;
     }
+
+    public void setServerIp(String serverIp){this.serverIp = serverIp;}
+
+    public String getServerIp(){ return serverIp;}
 }
