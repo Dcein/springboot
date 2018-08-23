@@ -62,6 +62,25 @@ public class SystemConstants {
      */
     public static final String PRIKEY_PATH = "F://b.txt";
 
+    /**
+     * canal_ip canal IP地址
+     */
+    public static final String CANAL_IP = "192.168.71.128";
+
+    /**
+     * canal_port canal服务端口号
+     */
+    public static final Integer CANAL_SERVER_PORT = 11111;
+
+    /**
+     * canal-destination canal目标距离
+     */
+    public static final String CANAL_DESTINATION = "example";
+
+
+
+
+
 
 
 }

@@ -20,13 +20,11 @@ public class SystemStartupFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
         log.info("[系统初始化...]");
     }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
-
         log.info("[过滤器工作中...]");
         filterChain.doFilter((HttpServletRequest)req,(HttpServletResponse)resp);
 
