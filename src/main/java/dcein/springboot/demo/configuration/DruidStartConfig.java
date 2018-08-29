@@ -5,8 +5,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import dcein.springboot.demo.constants.SystemConstants;
-import dcein.springboot.demo.utils.CommonUtils;
-import dcein.springboot.demo.utils.RSAUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import java.security.PrivateKey;
 import java.sql.SQLException;
 
 /**
