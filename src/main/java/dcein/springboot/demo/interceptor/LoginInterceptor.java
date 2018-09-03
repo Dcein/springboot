@@ -1,14 +1,12 @@
 package dcein.springboot.demo.interceptor;
 
 import org.apache.commons.lang3.StringUtils;
-import org.omg.PortableInterceptor.Interceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
@@ -32,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         Method method = handlerMethod.getMethod();
         LoginRequired annotation = method.getAnnotation(LoginRequired.class);
 
-        //step2.判断登陆注解是否为空
+        //step2.判断登陆注解是否为空,该方法不需要验证登陆访问
         if (null == annotation){
             log.info("[the method annotation is null , return true]");
             return true ;
@@ -50,15 +48,9 @@ public class LoginInterceptor implements HandlerInterceptor{
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
     }
-
-
-
-
 }

@@ -1,7 +1,6 @@
 package dcein.springboot.demo.utils;
 
 import dcein.springboot.demo.constants.SystemConstants;
-import org.junit.jupiter.api.Test;
 import sun.misc.BASE64Encoder;
 import java.util.Random;
 

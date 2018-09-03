@@ -4,12 +4,9 @@ import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
-import dcein.springboot.demo.configuration.DruidStartConfig;
 import dcein.springboot.demo.constants.SystemConstants;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.InetSocketAddress;
 import java.util.List;
 
@@ -29,8 +26,8 @@ public class CanalHandleCenter {
 
         //step1.将要访问canal服务端的目标名,服务IP和服务端口号
         String canan_destination = SystemConstants.CANAL_DESTINATION;
-        String canal_ip = SystemConstants.HJF_CANAL_IP;
         Integer canal_port = SystemConstants.CANAL_SERVER_PORT;
+        String canal_ip = SystemConstants.CANAL_IP;
 
         //step2.从连接器工厂获取连接器
         CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress(canal_ip,canal_port), canan_destination, "", "");
