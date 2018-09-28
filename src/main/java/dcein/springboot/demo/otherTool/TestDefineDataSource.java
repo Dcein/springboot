@@ -32,7 +32,7 @@ public class TestDefineDataSource {
         try {
             Connection conn = getConnection();
             if(conn != null){
-                System.out.println("我得到了一个连接");
+                System.out.println(conn.getCatalog());
             }
             CloseConnection(conn, null, null);
         } catch (SQLException e) {
