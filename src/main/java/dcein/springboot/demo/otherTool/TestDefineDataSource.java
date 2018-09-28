@@ -1,13 +1,10 @@
 package dcein.springboot.demo.otherTool;
 
 import org.junit.jupiter.api.Test;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.st;
 
 /**
  * @program: springboot

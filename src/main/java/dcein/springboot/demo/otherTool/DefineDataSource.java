@@ -2,9 +2,7 @@ package dcein.springboot.demo.otherTool;
 
 import dcein.springboot.demo.constants.SystemConstants;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationHandler;
@@ -14,7 +12,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.logging.Logger;
