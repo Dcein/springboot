@@ -18,7 +18,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ServletComponentScan
 @MapperScan(basePackages = "dcein.springboot.demo.mybatis.dao")
 @Slf4j
-public class DemoApplication {
+public class DemoApplication{
 
     /**
      * RestTemplate调用模板注入,这个地方需要制定bean,要不引用模板报null

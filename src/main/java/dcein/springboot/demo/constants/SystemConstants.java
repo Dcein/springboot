@@ -65,7 +65,7 @@ public class SystemConstants {
     /**
      * canal_ip canal IP地址
      */
-    public static final String CANAL_IP = "192.168.71.128";
+    public static final String CANAL_IP = "10.193.16.48";
 
     /**
      * canal_port canal服务端口号
@@ -76,6 +76,28 @@ public class SystemConstants {
      * canal-destination canal目标距离
      */
     public static final String CANAL_DESTINATION = "example";
+
+    /**
+     * 驱动连接
+     */
+    public static final String DATA_SOURCE_DRIVER = "driver";
+
+    /**
+     * 连接路径
+     */
+    public static final String DATA_SOURCE_URL = "url";
+
+    /**
+     * 用户名
+     */
+    public static final String DATA_SOURCE_USERNAME = "user";
+
+    /**
+     * 密码
+     */
+    public static final String DATA_SOURCE_PASSWORD = "password";
+
+
 
 
 
