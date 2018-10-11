@@ -66,7 +66,7 @@ public class IndexController extends BaseController {
         return "reading";
     }
 
-    @LoginRequired
+//    @LoginRequired
     @RequestMapping(value = "/getRecoding")
     public String getRecoding(){
         log.info("进入记录世界...");

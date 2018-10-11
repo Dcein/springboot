@@ -1,10 +1,20 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
-<p>阅读 -- 充实人生！</p>
+<p>阅读 -- 充实人生！开始进行欧飞话费充值</p>
+<!--/*@thymesVar id="greeting" type="dcein.springboot.demo.vo.Greeting"*/-->
+<form action="#" th:action="@{/user/greeting}" th:object="${greeting}" method="post">
+    <input type="text" th:name="account"  placeholder="account">
+    <input type="text" th:name="orderDesc"  placeholder="orderDesc">
+    <input type="text" th:name="notifyUrl"  placeholder="notifyUrl">
+    <input type="text" th:name="productNo"  placeholder="productNo">
+    <input type="text" th:name="orgOrderNo"  placeholder="orgOrderNo">
+    <button v-on:click="login" class="btn btn-block btn-primary mt-lg">Submit</button>
+</form>
 </body>
 </html>
